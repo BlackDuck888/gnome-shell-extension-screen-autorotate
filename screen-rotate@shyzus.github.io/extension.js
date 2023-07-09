@@ -1,5 +1,5 @@
 /* extension.js
-* Copyright (C) 2022  kosmospredanie, shyzus, Shinigaminai
+* Copyright (C) 2023  kosmospredanie, shyzus, Shinigaminai, BlackDuck888
 *
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -146,7 +146,7 @@ class ScreenAutorotate {
             }, 1000)
 
         };
-        
+
         this._system_actions._updateOrientationLock();
     }
 
@@ -190,7 +190,7 @@ class ScreenAutorotate {
     }
 
     rotate_to(orientation) {
-        const sensor_output = Orientation[orientation];
+        const sensor_output = (Orientation[orientation] + this._settings.get_boolean('fix-sensor-rotate')) % 4;
         let target = sensor_output;
         let reverse_horizontal_direction = this._settings.get_boolean('flip-horizontal-rotation-direction');
         let reverse_vertical_direction = this._settings.get_boolean('flip-vertical-rotation-direction');
@@ -241,7 +241,3 @@ class Extension {
 function init(meta) {
     return new Extension(meta.uuid);
 }
-
-
-
-
